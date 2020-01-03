@@ -1,6 +1,7 @@
 <template>
   <div class="card-group" :class="chartClasses">
-    <div class="card" v-if="show">
+    <!-- Could make each one of these a compoennt  -->
+    <div class="card mx-3 p-0" v-if="show">
       <div class="card-body">
         <!-- Todo: adjust button to the right  -->
         <h5 class="card-title">
@@ -36,13 +37,13 @@
         <BarChart :chartData="chart.amountChart" :style="myStyles" />
       </div>
     </div>
-    <div class="card" v-if="show">
+    <div class="card mx-3 p-0 border-left" v-if="show">
       <div class="card-body">
         <h5 class="card-title">Profit</h5>
         <BarChart :chartData="chart.profitChart" />
       </div>
     </div>
-    <div class="card" v-if="show">
+    <div class="card mx-3 p-0 border-left" v-if="show">
       <div class="card-body">
         <h5 class="card-title">
           Quick Look
@@ -50,25 +51,27 @@
             <font-awesome-icon :icon="['fa','chevron-up']" />
           </a>
         </h5>
-        <table class="table table-sm table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Price</th>
-              <th scope="col">$Profit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(transaction, index) in chart.tableTransactions" :key="index">
-              <th scope="row">{{transaction.date}}</th>
-              <td>{{transaction.amountCrypto}}</td>
-              <td>{{transaction.priceAtTime}}</td>
-              <!-- add the negative sign on the left side of money sign  -->
-              <td>${{transaction.amountDollars}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-wrapper-scroll-y custom-scrollbar">
+          <table class="table table-sm table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Price</th>
+                <th scope="col">$Profit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(transaction, index) in chart.tableTransactions" :key="index">
+                <th scope="row">{{transaction.date}}</th>
+                <td>{{transaction.amountCrypto}}</td>
+                <td>{{transaction.priceAtTime}}</td>
+                <!-- add the negative sign on the left side of money sign  -->
+                <td>${{transaction.amountDollars}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div>
           <div>Break Even: ${{chart.quickData.breakEven}}</div>
           <div>{{chart.quickData.totalTransactions}} transactions.</div>
@@ -83,7 +86,7 @@
         </div>
       </div>
     </div>
-    <div class="card" v-else>
+    <div class="card mx-3" v-else>
       <div class="row no-gutters">
         <div class="col px-0 mx-0">
           <div class="card-body px-0 mx-0">
@@ -291,4 +294,15 @@ export default Vue.extend({
 });
 </script>
 
+<style lang="scss" scoped>
+.table-wrapper-scroll-y {
+  display: block;
+}
+.custom-scrollbar {
+  position: relative;
+  // Todo: update this part with em etx
+  height: 400px;
+  overflow: auto;
+}
+</style>
 

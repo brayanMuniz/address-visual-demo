@@ -18,11 +18,22 @@ export default {
     },
     options: {
       type: Object,
-      default: null
+      // Todo: configure this to where if it is less than a certain difference
+      default: {
+        // scales: {
+        //   yAxes: [
+        //     {
+        //       ticks: {
+        //         beginAtZero: true
+        //       }
+        //     }
+        //   ]
+        // }
+      }
     }
   },
   mounted() {
-    this.renderChart(this.chartData, {});
+    this.renderChart(this.chartData, this.options);
   }
 };
 </script>
